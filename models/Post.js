@@ -41,4 +41,6 @@ Post.init(
         underscored: true,
         modelName: 'post',
       }
-)
+);
+
+model.exports = Post;

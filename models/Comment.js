@@ -36,3 +36,5 @@ Comment.init (
         modelName: 'comment',
       }
 )
+
+model.exports = Comment;
