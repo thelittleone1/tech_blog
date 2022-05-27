@@ -12,21 +12,28 @@ Comment.init (
             autoIncrement: true,
         },
         comment_text: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 length:[1]
             }
         },
         post_id: {
-            type: DataType.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: false,
             references: {
                 model: "post",
                 key: "id",
             }
-        }
-        
+        },
+        user_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: "user",
+                key: "id",
+            }
+        },
     },
     {
         sequelize,
