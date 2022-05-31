@@ -51,3 +51,38 @@ router.get("/login", (req, res) => {
     }
     res.render("signup");
 })
+
+// rendering a single post
+router.get("/post/:id", (req,res) => {
+    Post.findOne({
+        where: {
+            id: req.session.id
+        },
+        attributes: [
+            "id",
+            "post_text",
+            "title",
+            "user_id",
+        ],
+        include: [
+            {
+                model: Comment,
+                attributes: [
+                    "id",
+                    "comment_text",
+                    "post_id",
+                    "user_id",
+                ],
+                include: {
+                    model: User,
+                    attributes: ["user_name"],
+                }
+            },
+            {
+                model: User,
+                attributes: [ "user_name"],
+            }
+        ]
+    })
+    .then()
+})
