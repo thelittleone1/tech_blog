@@ -14,7 +14,8 @@ router.get("/", (res, req) => {
             "title",
             "user_id",
         ], 
-            include: {
+            include: [
+                {
                 model: Comment,
                 attributes: 
                     [
@@ -27,8 +28,20 @@ router.get("/", (res, req) => {
                             model: User,
                             attributes: "user_name"
                         }
-            }
+                    }
+                    ]
+    })
+    .then(userPostData => {
+        if (!userPostData) {
+            res.statusCode(404).send("Could not find data");
+            return;
+        }
 
+        // Serialize data so the template can read it
+        const postedData = userPostData.get({ plain: true });
+
+        // Pass serialized data and session flag into template
+        res.render("single_post", { post, logged_in: req.session.logged_in})
     })
 })
 
