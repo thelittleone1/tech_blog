@@ -35,7 +35,7 @@ router.get("/", (res, req) => {
         // Serialize data so the template can read it
         const postedData = userPostData.get({ plain: true });
         // Pass serialized data and session flag into template
-        res.render("homepage", { postedEData, logged_in: req.session.logged_in});
+        res.render("homepage", { postedData, logged_in: req.session.logged_in});
     })
     .catch(err => {
         console.log(err);
@@ -84,5 +84,18 @@ router.get("/post/:id", (req,res) => {
             }
         ]
     })
-    .then()
+    .then(userPostData => {
+        if (!userPostData) {
+            res.status(404).send("Could not find a post");
+            return;
+        }
+        // Serialize data so the template can read it
+        const postedData = userPostData.get({ plain: true });
+        // Pass serialized data and session flag into template
+        res.render("single_post", { postedData, logged_in: req.session.logged_in});
+    })
+    .catch(err => {
+        console.log(err);
+        res.statusCode(500).json(err);
+    });
 })
