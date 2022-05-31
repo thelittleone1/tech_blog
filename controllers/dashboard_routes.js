@@ -48,3 +48,10 @@ router.get("/edit/:id", authorize, (req,res) => {
         res.statusCode(500).json(err);
     });
 });
+
+// need to render the new posts somehow
+router.get("/new_post", (res,req) => {
+    res.render("new_posts");
+});
+
+module.exports = router;
