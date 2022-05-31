@@ -50,7 +50,12 @@ router.get("/login", (req, res) => {
         return;
     }
     res.render("signup");
-})
+});
+
+// LOL you need to reder the sign up page to tesst 
+router.get("/signup", (req, res) => {
+    res.render("signup");
+});
 
 // rendering a single post
 router.get("/post/:id", (req,res) => {
