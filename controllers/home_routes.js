@@ -32,17 +32,15 @@ router.get("/", (res, req) => {
                     ]
     })
     .then(userPostData => {
-        if (!userPostData) {
-            res.statusCode(404).send("Could not find data");
-            return;
-        }
-
         // Serialize data so the template can read it
         const postedData = userPostData.get({ plain: true });
-
         // Pass serialized data and session flag into template
-        res.render("single_post", { post, logged_in: req.session.logged_in})
+        res.render("homepage", { postedEData, logged_in: req.session.logged_in});
     })
+    .catch(err => {
+        console.log(err);
+        res.statusCode(500).json(err);
+    });
 })
 
 // Once User logins, this route will direct them to the homepage
