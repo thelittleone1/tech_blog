@@ -103,4 +103,6 @@ router.get("/post/:id", (req,res) => {
         console.log(err);
         res.statusCode(500).json(err);
     });
-})
+});
+
+module.exports = router;
