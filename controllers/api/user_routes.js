@@ -15,3 +15,10 @@ router.get("/", (req,res) => {
         res.status(500).json(err);
     });
 });
+
+// Route to get one user
+router.get("/:id", (req,res) => {
+    User.findOne({
+
+    });
+});
