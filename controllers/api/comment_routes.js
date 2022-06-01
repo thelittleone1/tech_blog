@@ -13,3 +13,16 @@ router.get("/", (req, res) => {
         res.status(500).json(err);
     });
 });
+
+// Route to Create new comments
+router.post("/", authorize, (req, res) => {
+    if (req.session) {
+        Comment.create({
+            comment_text: req.body.comment_text,
+            post_id: req.body.post_id,
+            user_id: req.session.user_id,
+        })
+    }
+});
+
+// Route to delete comments
