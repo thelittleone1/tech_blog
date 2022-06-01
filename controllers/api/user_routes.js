@@ -105,3 +105,23 @@ router.get("/login", (req, res) => {
         });
     });
 });
+
+// Route to Update a User
+router.put("/:id", authorize, (req, res) => {
+    User.update(req.body, {
+        individualHooks: true,
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(userPostData => {
+        if (!userPostData[0]) {
+            res.status(404).send("Oh No, no user found!");
+            return;
+        }
+    })
+    .catch(err => {
+        console.log(err);
+        res.statusCode(500).json(err);
+    });
+});
