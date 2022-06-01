@@ -49,7 +49,7 @@ router.get("/:id", (req,res) => {
     })
     .then(userPostData => {
         if (!userPostData) {
-            res.status(404).send("Could not find a post");
+            res.status(404).send("You got another problem");
             return;
         }
     })
@@ -68,6 +68,7 @@ router.post("/", (req, res) => {
     })
     .then(userPostData => {
         req.session.save(() => {
+            // Session Variables
             req.session.user_id = userPostData.id;
             req.session.user_name = userPostData.user_name;
             req.session.logged_in = true;
@@ -76,3 +77,31 @@ router.post("/", (req, res) => {
 });
 
 // Route to verify user
+router.get("/login", (req, res) => {
+    User.findOne({
+        where: {
+            email: req.body.email
+        }
+    })
+    .then(userPostData => {
+        if (!userPostData) {
+            res.status(404).send("Oh No!");
+            return;
+        }
+
+        // Verifying password
+        const validatePassword = userPostData.checkPassword(req.body.password);
+        if (!validatePassword) {
+            res.status(404).send("That is not the right password");
+            return;
+        }
+        req.session.save(() => {
+            // Session Variables
+            req.session.user_id = userPostData.id;
+            req.session.user_name = userPostData.user_name;
+            req.session.logged_in = true;
+
+            res.json.send("You are logged in!");
+        });
+    });
+});
