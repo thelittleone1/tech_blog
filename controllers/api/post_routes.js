@@ -131,6 +131,18 @@ router.put("/:id", authorize, (req,res) => {
 // Route to delete a post
 router.delete("/:id", authorize, (req,res) => {
     Post.destroy({
-        
+        where: {
+            id: req.params.id
+        }
     })
+    .then(userPostData => {
+        if (!userPostData) {
+            res.status(404).send("Something be wrong");
+            return;
+        }
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
 });
