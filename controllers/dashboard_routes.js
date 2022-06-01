@@ -4,7 +4,7 @@ const sequelize = require("../config/connection");
 const { Comment, Post, User } = require("../models");
 const authorize = require("../utils/auth");
 
-// Route to display posts
+// Route to display one post
 router.get("/edit/:id", authorize, (req,res) => {
     Post.findOne({
         where: {

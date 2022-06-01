@@ -41,3 +41,45 @@ router.get("/", (res, req) => {
         res.statusCode(500).json(err);
     });
 });
+
+// Route to display one post
+// Editing route from dashboard routes
+router.get("/:id", (req,res) => {
+    Post.findOne({
+        where: {
+            id: req.params.id
+        },
+        attributes: 
+        [
+            "id",
+            "post_text",
+            "title",
+            "user_id",
+        ],
+        include: [
+            {
+                model: Comment,
+                attributes: [
+                    "id",
+                    "comment_text",
+                    "post_id",
+                    "user_id",
+                ],
+                include: {
+                    model: User,
+                    attributes: ["user_name"]
+                }
+            }
+        ]
+    })
+    .then(userPostData => {
+        // Serialize data so the template can read it
+        const postedData = userPostData.get({ plain: true });
+        // Pass serialized data and session flag into template
+        res.render("display_posts", { postedData, logged_in: true});
+    })
+    .catch(err => {
+        console.log(err);
+        res.statusCode(500).json(err);
+    });
+});
