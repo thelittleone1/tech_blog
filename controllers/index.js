@@ -1,7 +1,6 @@
 const router = require("express").Router();
 
 // Connecting to all routes files
-//WORK ON THESE ROUTES NEXT
 const apiRoutes = require("./api");
 const dashboardRoutes = require("./dashboard_routes");
 const homeRoutes = require("./home_routes");
