@@ -74,3 +74,5 @@ router.post("/", (req, res) => {
         });
     });
 });
+
+// Route to verify user
