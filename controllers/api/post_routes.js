@@ -6,3 +6,38 @@ const authorize = require("../utils/auth");
 
 // Do a route to get all posts
 // Editing route from home_routes
+// Rendering the homepage
+router.get("/", (res, req) => {
+    Post.findAll({
+        attributes: [
+            "id",
+            "post_text",
+            "title",
+            "user_id",
+        ], 
+            include: [
+                {
+                model: Comment,
+                attributes: 
+                    [
+                        "id",
+                        "comment_text",
+                        "post_id",
+                        "user_id",
+                    ],
+                        include: {
+                            model: User,
+                            attributes: "user_name"
+                        }
+                    }
+                    ]
+    })
+    .then(userPostData => {
+        // Serialize data so the template can read it
+        const postedData = userPostData.get({ plain: true });
+    })
+    .catch(err => {
+        console.log(err);
+        res.statusCode(500).json(err);
+    });
+});
