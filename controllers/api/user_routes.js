@@ -125,3 +125,10 @@ router.put("/:id", authorize, (req, res) => {
         res.statusCode(500).json(err);
     });
 });
+
+// Route to Delete a user
+router.delete("/:id", authorize, (req, res) => {
+    User.destroy({
+        
+    });
+});
