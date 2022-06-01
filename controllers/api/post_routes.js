@@ -89,7 +89,22 @@ router.get("/:id", (req,res) => {
     });
 });
 
-// Route to create a new posy
+// Route to create a new post
+
 router.post("/", authorize, (req, res) => {
-    
+    Post.create({
+        post_text: req.body.post_text,
+        title: req.body.title,
+        user_id: req.session.user_id
+    })
+    .then(userPostData => {
+        if(!userPostData) {
+            res.status(404).send("You got a problem");
+            return;
+        }
+    })
+    .catch(err => {
+        console.log(err);
+        res.statusCode(500).json(err);
+    });
 });
