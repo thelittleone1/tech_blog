@@ -98,10 +98,7 @@ router.post("/", authorize, (req, res) => {
         user_id: req.session.user_id
     })
     .then(userPostData => {
-        if(!userPostData) {
-            res.status(404).send("You got a problem");
-            return;
-        }
+        res.json(userPostData);
     })
     .catch(err => {
         console.log(err);
