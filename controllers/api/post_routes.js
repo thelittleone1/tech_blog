@@ -127,3 +127,10 @@ router.put("/:id", authorize, (req,res) => {
         res.status(500).json(err);
     });
 });
+
+// Route to delete a post
+router.delete("/:id", authorize, (req,res) => {
+    Post.destroy({
+        
+    })
+});
