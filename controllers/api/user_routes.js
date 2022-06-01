@@ -58,3 +58,8 @@ router.get("/:id", (req,res) => {
         res.statusCode(500).json(err);
     });
 });
+
+// Route to create a new user
+router.post("/", (req, res) => {
+    
+})
