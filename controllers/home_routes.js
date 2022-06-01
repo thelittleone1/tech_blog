@@ -42,7 +42,7 @@ router.get("/", (res, req) => {
         console.log(err);
         res.statusCode(500).json(err);
     });
-})
+});
 
 // Once User logins, this route will direct them to the homepage
 router.get("/login", (req, res) => {
