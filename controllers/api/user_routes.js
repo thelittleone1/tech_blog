@@ -129,6 +129,31 @@ router.put("/:id", authorize, (req, res) => {
 // Route to Delete a user
 router.delete("/:id", authorize, (req, res) => {
     User.destroy({
-        
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(userPostData => {
+        if (!userPostData) {
+            res.status(404).send("User not deleted because they were not found");
+            return;
+        }
+    })
+    .catch(err => {
+        console.log(err);
+        res.statusCode(500).json(err);
     });
 });
+
+// Route to LogOut
+router.post("/logout", authorize, (req, res) => {
+    if (req.session.logged_in) {
+        req.session.destroy(() => {
+            res.status(204).end();
+        });
+    } else {
+        res.status(404).end();
+    }
+});
+
+module.exports = router;
