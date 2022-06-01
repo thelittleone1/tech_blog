@@ -90,7 +90,6 @@ router.get("/:id", (req,res) => {
 });
 
 // Route to create a new post
-
 router.post("/", authorize, (req, res) => {
     Post.create({
         post_text: req.body.post_text,
@@ -103,5 +102,28 @@ router.post("/", authorize, (req, res) => {
     .catch(err => {
         console.log(err);
         res.statusCode(500).json(err);
+    });
+});
+
+// Create route to update a post
+router.put("/:id", authorize, (req,res) => {
+    Post.update({
+        post_text: req.body.post_text,
+        title: req.body.title
+    },
+    {
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(userPostData => {
+        if (!userPostData) {
+            res.status(404).send("Something be wrong");
+            return;
+        }
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
     });
 });
