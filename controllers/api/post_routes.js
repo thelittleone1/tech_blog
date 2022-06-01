@@ -88,3 +88,8 @@ router.get("/:id", (req,res) => {
         res.statusCode(500).json(err);
     });
 });
+
+// Route to create a new posy
+router.post("/", authorize, (req, res) => {
+    
+});
