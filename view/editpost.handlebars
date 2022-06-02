@@ -1,0 +1,37 @@
+<article>
+    <a href="/dashboard">Dashboard</a>
+    <h2>Edit this Post</h2>
+
+    <form class="edit_post_form">
+
+        <div>
+            <input name="post_title" type="text" value="{{post.title}}">
+        </div>
+
+        <div>
+            <textarea name="post_text" type="text">{{post.post_text}}</textarea>
+        </div>
+
+        <div>
+            <button type="submit">Save</button>
+            <button type="submit">Delete Post</button>
+        </div>
+
+    </form>
+</article>
+
+<form class="comment_form">
+
+    <div>
+        <textarea name="comment_body"></textarea>
+    </div>
+
+    <div>
+        <button type="submit">Add Text</button>
+    </div>
+
+</form>
+
+<script src="/public/js/edit_post.js"></script>
+<script src="/public/js/comment.js"></script>
+{{!-- Add Script to Delete Posts --}}
